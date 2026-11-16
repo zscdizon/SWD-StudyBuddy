@@ -1,0 +1,89 @@
+# SWD STUDYBUDDY
+## Development Log
+
+### 1. Project Overview
+**Project Name:** SWD StudyBuddy  
+**Project Type:** Web-Based Application  
+**Target Users:** 1st to 4th Year Computer Engineering Students  
+**Purpose:** A gamified study companion designed to help Computer Engineering students organize their academic activities, manage notes, and improve their study habits.
+
+### 2. Development Environment
+
+| Tool / Technology | Purpose | Status |
+|---|---|---|
+| Visual Studio Code | Code editor | Installed |
+| Node.js | JavaScript runtime | Installed |
+| npm | Package management | Working |
+| Vue 3 | Frontend framework | Configured |
+| Vite | Development server and build tool | Configured |
+| JavaScript | Primary programming language | Selected |
+| Vue Router | Application navigation | Configured |
+| Pinia | State management | Configured |
+| ESLint | Code quality | Configured |
+| Prettier | Code formatting | Configured |
+| Git | Version control | Initialized |
+| GitHub | Online repository and backup | Connected |
+| Google Chrome | Browser testing | Available |
+| Supabase | Backend, authentication, and database | Account created; project not yet configured |
+
+### 3. Project Configuration
+- JavaScript selected instead of TypeScript.
+- JSX support disabled.
+- Vue Router enabled.
+- Pinia enabled.
+- Vitest disabled for initial setup.
+- End-to-End Testing disabled for initial setup.
+- ESLint enabled.
+- Prettier enabled.
+- Experimental features disabled.
+- Blank Vue project selected.
+
+### 4. Git and GitHub
+**Repository:** https://github.com/zscdizon/SWD-StudyBuddy.git
+
+**Main Branch:** main
+
+**Initial Commit:** Initial Vue project setup
+
+**Version Control Status:** Successfully initialized and pushed to GitHub.
+
+### 5. Project Development Principles
+- Preserve the original StudyBuddy pixel-art identity.
+- Build the application from scratch.
+- Develop and test features incrementally.
+- Keep the original Figma prototype and previous experiments untouched.
+- Use the school's official Computer Engineering curriculum as the source for subjects.
+- Allow students to manually update their year level.
+- Verify student email addresses during registration.
+- Keep student notes and personal journal entries private to their accounts.
+
+### 6. Planned Application Features
+- Student registration and login.
+- Email verification.
+- Student year-level selection and management.
+- Personalized student dashboard.
+- Year-level-specific Computer Engineering subjects.
+- Individual subject notebooks.
+- Personal journal / diary.
+- Note creation, editing, deletion, and searching.
+- Study planner and calendar.
+- Quests, quizzes, and practice activities.
+- XP, achievements, and progress tracking.
+- Persistent cloud database storage.
+
+### 7. Current Development Status
+
+**Phase 1: Development Environment and Project Setup**
+
+- [x] Install development tools.
+- [x] Create the new project directory.
+- [x] Scaffold the Vue application.
+- [x] Install project dependencies.
+- [x] Verify the development server.
+- [x] Initialize Git.
+- [x] Create the initial commit.
+- [x] Create GitHub repository.
+- [x] Push initial project to GitHub.
+- [x] Create development log.
+
+**Next Phase:** Project organization and backend preparation.
