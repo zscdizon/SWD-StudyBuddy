@@ -87,3 +87,38 @@
 - [x] Create development log.
 
 **Next Phase:** Project organization and backend preparation.
+
+## Supabase Database Setup
+
+### Project Configuration
+- Created Supabase organization and project.
+- Selected Asia Pacific (Singapore) as the database region.
+- Enabled the Data API.
+- Enabled automatic Row Level Security (RLS) for new tables.
+
+### Profiles Table
+Created `public.profiles` with:
+- `id` — UUID, primary key, references `auth.users.id`.
+- `created_at` — Timestamp with default `now()`.
+- `full_name` — Text.
+- `year_level` — Smallint.
+- `avatar_url` — Text.
+- `updated_at` — Timestamp with default `now()`.
+
+### Security Policies
+Created the following RLS policies:
+- Students can view their own profile.
+- Students can create their own profile.
+- Students can update their own profile.
+
+All three policies use `auth.uid() = id` to restrict access to the profile owner.
+
+### Database Constraints
+- Added `valid_year_level` CHECK constraint.
+- Permitted year levels: 1 through 4.
+- NULL is temporarily allowed for incomplete registration profiles.
+
+### Pending Database Tasks
+- Configure automatic profile creation during registration.
+- Configure automatic `updated_at` timestamp updates.
+- Configure and test authentication.
