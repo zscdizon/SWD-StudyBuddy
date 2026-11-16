@@ -120,5 +120,10 @@ All three policies use `auth.uid() = id` to restrict access to the profile owner
 
 ### Pending Database Tasks
 - Configure automatic profile creation during registration.
-- Configure automatic `updated_at` timestamp updates.
 - Configure and test authentication.
+
+### Automatic Timestamp Updates
+- Created `public.update_updated_at()` PostgreSQL function.
+- Created `set_profiles_updated_at` trigger.
+- Trigger automatically updates `updated_at` before every profile update.
+- Verified that the trigger exists in Supabase.
