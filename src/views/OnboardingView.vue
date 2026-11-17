@@ -1,10 +1,39 @@
-
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import {
+  getCurrentStudent,
+  updateStudentProfile,
+} from '@/services/auth'
+
+const router = useRouter()
 
 const fullName = ref('')
 const yearLevel = ref('')
+const isLoading = ref(false)
+const errorMessage = ref('')
+
+async function handleCompleteProfile() {
+  errorMessage.value = ''
+  isLoading.value = true
+
+  try {
+    const user = await getCurrentStudent()
+
+    await updateStudentProfile(user.id, {
+      fullName: fullName.value,
+      yearLevel: Number(yearLevel.value),
+    })
+
+    router.push('/')
+  } catch (error) {
+    errorMessage.value = error.message
+  } finally {
+    isLoading.value = false
+  }
+}
 </script>
+
 
 <template>
   <main class="onboarding-page">
@@ -19,7 +48,11 @@ const yearLevel = ref('')
         Set up your student profile and personalize your StudyBuddy experience.
       </p>
 
-      <form class="onboarding-form" @submit.prevent>
+      <p v-if="errorMessage" class="error-message">
+      {{ errorMessage }}
+      </p>
+
+      <form class="onboarding-form" @submit.prevent="handleCompleteProfile">
         <label for="fullName">Your Full Name</label>
         <input
           id="fullName"
@@ -43,8 +76,12 @@ const yearLevel = ref('')
           You can update your year level anytime in your profile.
         </p>
 
-        <button type="submit" class="continue-button">
-          COMPLETE PROFILE
+        <button
+        type="submit"
+        class="continue-button"
+        :disabled="isLoading"
+        >
+        {{ isLoading ? 'SAVING PROFILE...' : 'COMPLETE PROFILE' }}
         </button>
       </form>
 
@@ -113,6 +150,18 @@ h1 {
   line-height: 1.7;
 }
 
+.error-message {
+  margin: 0 0 15px;
+  padding: 12px;
+  color: #9b4545;
+  background: #f8e5df;
+  border: 2px solid #d9a49a;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
 .onboarding-form {
   display: flex;
   flex-direction: column;
@@ -165,6 +214,12 @@ h1 {
 
 .continue-button:hover {
   background: #7c8c63;
+}
+
+.continue-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .footer-text {

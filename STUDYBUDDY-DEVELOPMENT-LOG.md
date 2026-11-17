@@ -162,6 +162,19 @@ All remaining policies restrict access using `auth.uid() = id`.
 - Verified the project using `npm run build`.
 - Production build completed successfully with no errors.
 
+### Authentication and Onboarding Testing
+- Successfully tested student registration.
+- Verified student email through Supabase Auth.
+- Successfully tested student login.
+- Confirmed that students with incomplete profiles are redirected to onboarding.
+- Implemented student profile completion.
+- Successfully saved full name and year level to the Supabase `profiles` table.
+- Verified saved profile information in Supabase Table Editor.
+- Confirmed automatic `updated_at` timestamp updates.
+- Granted authenticated users the required SELECT and UPDATE table privileges while retaining Row Level Security policies.
+- Verified the application using `npm run build`.
+
+
 
 ### Environment Configuration
 - Created `.env.local` to store Supabase connection credentials.

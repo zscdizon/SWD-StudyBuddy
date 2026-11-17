@@ -9,6 +9,7 @@ export async function registerStudent({ fullName, email, password }) {
       data: {
         full_name: fullName,
       },
+      emailRedirectTo: `${window.location.origin}/auth/callback`,
     },
   })
 
@@ -86,7 +87,8 @@ export async function getStudentProfile(userId) {
 }
 
 
-/** Update a student's profile. */
+/**
+ *  Update a student's profile. */
 export async function updateStudentProfile(userId, profileData) {
   const { data, error } = await supabase
     .from('profiles')

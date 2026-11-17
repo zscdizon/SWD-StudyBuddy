@@ -2,21 +2,48 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { loginStudent, getStudentProfile } from '@/services/auth'
 
 const router = useRouter()
 
 const email = ref('')
 const password = ref('')
+const isLoading = ref(false)
+const errorMessage = ref('')
 
 function goToRegister() {
   router.push('/register')
 }
 
 function goToForgotPassword() {
-  // We'll implement password recovery later.
   console.log('Password recovery will be implemented later.')
 }
+
+async function handleLogin() {
+  errorMessage.value = ''
+  isLoading.value = true
+
+  try {
+    const { user } = await loginStudent({
+      email: email.value,
+      password: password.value,
+    })
+
+    const profile = await getStudentProfile(user.id)
+
+    if (profile.year_level === null) {
+      router.push('/onboarding')
+    } else {
+      router.push('/')
+    }
+  } catch (error) {
+    errorMessage.value = error.message
+  } finally {
+    isLoading.value = false
+  }
+}
 </script>
+
 
 <template>
   <main class="login-page">
@@ -30,8 +57,11 @@ function goToForgotPassword() {
       <p class="subtitle">
         Your study buddy has been waiting for you.
       </p>
+      <p v-if="errorMessage" class="error-message">
+      {{ errorMessage }}
+      </p>
 
-      <form class="login-form" @submit.prevent>
+      <form class="login-form" @submit.prevent="handleLogin">
         <label for="email">Email Address</label>
         <input
           id="email"
@@ -60,8 +90,12 @@ function goToForgotPassword() {
           Forgot Password?
         </button>
 
-        <button type="submit" class="login-button">
-          LOG IN
+        <button
+         type="submit"
+         class="login-button"
+         :disabled="isLoading"
+         >
+         {{ isLoading ? 'LOGGING IN...' : 'LOG IN' }}
         </button>
       </form>
 
@@ -141,6 +175,18 @@ h1 {
   line-height: 1.6;
 }
 
+.error-message {
+  margin: 0 0 15px;
+  padding: 12px;
+  color: #9b4545;
+  background: #f8e5df;
+  border: 2px solid #d9a49a;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
@@ -198,6 +244,12 @@ h1 {
   background: #7c8c63;
 }
 
+.login-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .register-text {
   margin-top: 24px;
   color: #82735f;
@@ -221,3 +273,4 @@ h1 {
   font-size: 11px;
 }
 </style>
+

@@ -1,18 +1,56 @@
-
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-
+import { registerStudent } from '@/services/auth'
 const router = useRouter()
 
 const fullName = ref('')
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
+const isLoading = ref(false)
+const errorMessage = ref('')
+const successMessage = ref('')
 
 function goToLogin() {
   router.push('/login')
 }
+
+async function handleRegister() {
+  errorMessage.value = ''
+  successMessage.value = ''
+
+  if (password.value !== confirmPassword.value) {
+    errorMessage.value = 'Your passwords do not match.'
+    return
+  }
+
+  isLoading.value = true
+
+  try {
+    const data = await registerStudent({
+      fullName: fullName.value,
+      email: email.value,
+      password: password.value,
+    })
+
+    if (data.user && !data.session) {
+      successMessage.value =
+        'Account created! Please check your email to verify your account.'
+    } else {
+      successMessage.value =
+        'Your account has been created successfully!'
+    }
+
+    password.value = ''
+    confirmPassword.value = ''
+  } catch (error) {
+    errorMessage.value = error.message
+  } finally {
+    isLoading.value = false
+  }
+}
+
 </script>
 
 <template>
@@ -28,7 +66,15 @@ function goToLogin() {
         Join StudyBuddy and make every study session count!
       </p>
 
-      <form class="register-form" @submit.prevent>
+      <p v-if="errorMessage" class="error-message">
+      {{ errorMessage }}
+      </p>
+
+      <p v-if="successMessage" class="success-message">
+      {{ successMessage }}
+      </p>
+
+      <form class="register-form" @submit.prevent="handleRegister">
         <label for="fullName">Full Name</label>
         <input
           id="fullName"
@@ -69,8 +115,12 @@ function goToLogin() {
           required
         />
 
-        <button type="submit" class="create-button">
-          CREATE ACCOUNT
+        <button
+        type="submit"
+        class="create-button"
+        :disabled="isLoading"
+        >
+        {{ isLoading ? 'CREATING ACCOUNT...' : 'CREATE ACCOUNT' }}
         </button>
       </form>
 
@@ -146,6 +196,30 @@ h1 {
   line-height: 1.6;
 }
 
+.error-message {
+  margin: 0 0 15px;
+  padding: 12px;
+  color: #9b4545;
+  background: #f8e5df;
+  border: 2px solid #d9a49a;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.success-message {
+  margin: 0 0 15px;
+  padding: 12px;
+  color: #536b42;
+  background: #e8efdc;
+  border: 2px solid #a9bb91;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
 .register-form {
   display: flex;
   flex-direction: column;
@@ -189,6 +263,12 @@ h1 {
 
 .create-button:hover {
   background: #7c8c63;
+}
+
+.create-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .login-text {
