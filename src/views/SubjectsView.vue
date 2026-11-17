@@ -115,17 +115,18 @@ onMounted(async () => {
       <h3 class="semester-title">{{ term.semester }}</h3>
 
       <div class="subject-grid">
-        <article
-          v-for="subject in term.subjects"
-          :key="subject.id"
-          class="subject-card"
-        >
+        <RouterLink
+  v-for="subject in term.subjects"
+  :key="subject.id"
+  :to="{ name: 'subject-detail', params: { id: subject.id } }"
+  class="subject-card"
+>
           <span class="subject-code">{{ subject.subject_code }}</span>
 
           <h4>{{ subject.subject_name }}</h4>
 
           <p>{{ subject.units }} Units</p>
-        </article>
+        </RouterLink>
       </div>
     </section>
   </section>

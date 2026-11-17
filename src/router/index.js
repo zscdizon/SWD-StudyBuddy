@@ -8,6 +8,7 @@ import AuthCallbackView from '@/views/AuthCallbackView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import { getCurrentStudent } from '@/services/auth'
 import SubjectsView from '@/views/SubjectsView.vue'
+import SubjectDetailView from '@/views/SubjectDetailView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +31,14 @@ const router = createRouter({
   path: '/subjects',
   name: 'subjects',
   component: SubjectsView,
+  meta: {
+    requiresAuth: true,
+  },
+},
+{
+  path: '/subjects/:id',
+  name: 'subject-detail',
+  component: SubjectDetailView,
   meta: {
     requiresAuth: true,
   },

@@ -310,3 +310,35 @@ All remaining policies restrict access using `auth.uid() = id`.
 - Confirmed all year and semester sections appear.
 - Successfully built the application with no errors.
 - Tested the Subjects page in Chrome.
+
+## Personal Subject Notes — Complete CRUD Functionality
+
+### Database
+- Created the `subject_notes` table in Supabase.
+- Linked notes to authenticated students and individual subjects.
+- Enabled Row Level Security.
+- Added policies for viewing, creating, updating, and deleting personal notes.
+
+### Notes Service
+- Created `src/services/notes.js`.
+- Implemented retrieving subject notes.
+- Implemented creating new notes.
+- Implemented updating existing notes.
+- Implemented deleting notes.
+
+### Subject Notebook
+- Connected personal notes to `SubjectDetailView.vue`.
+- Added a note title input and content editor.
+- Added Save Note and Update Note functionality.
+- Added Edit Note and Cancel Editing buttons.
+- Added Delete Note with confirmation.
+- Added saved-note cards and empty states.
+- Added loading, validation, and error handling.
+
+### Testing
+- Successfully created and retrieved notes.
+- Verified notes persist after refreshing.
+- Successfully edited and updated existing notes.
+- Verified edits persist after refreshing.
+- Successfully deleted notes.
+- Verified deleted notes remain deleted after refreshing.
