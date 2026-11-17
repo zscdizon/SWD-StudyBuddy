@@ -282,3 +282,31 @@ All remaining policies restrict access using `auth.uid() = id`.
 ### Build Verification
 - Executed `npm.cmd run build`.
 - Production build completed successfully with no errors.
+
+## Official Computer Engineering Curriculum Integration
+
+### Supabase Database
+- Created the `subjects` table.
+- Added subject codes, names, year levels, semesters, units, and display ordering.
+- Enabled Row Level Security for authenticated students.
+- Imported the 78 official curriculum entries from the University of the Assumption curriculum.
+- Added a unique index to prevent duplicate curriculum entries.
+
+### Subjects Service
+- Created `src/services/subjects.js`.
+- Connected subject retrieval to the existing Supabase client.
+- Added year-level and semester filtering.
+- Preserved curriculum display ordering.
+
+### Dynamic Subjects Page
+- Connected `SubjectsView.vue` to Supabase.
+- Added loading and error states.
+- Automatically grouped subjects by year level and semester.
+- Added support for the third-year summer term.
+- Displayed official subject codes, names, and units.
+
+### Verification
+- Successfully verified the imported curriculum.
+- Confirmed all year and semester sections appear.
+- Successfully built the application with no errors.
+- Tested the Subjects page in Chrome.
