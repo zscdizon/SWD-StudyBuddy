@@ -380,3 +380,15 @@ All remaining policies restrict access using `auth.uid() = id`.
 - Implement subject completion tracking.
 - Implement automatic study activity recording.
 - Implement achievement unlocking rules.
+
+## Subject Completion System
+
+- Added subject completion functionality to the Subject Detail page.
+- Students can mark individual subjects as completed.
+- Completion status is stored in Supabase's student_subject_progress table.
+- Implemented completion status retrieval when opening a subject.
+- Prevented repeated completion submissions through button state handling.
+- Completion status persists after refreshing the page.
+- Integrated completed subject counts with the My Progress dashboard.
+- Verified that completing a subject updates the progress dashboard.
+- Successfully passed the production build.
