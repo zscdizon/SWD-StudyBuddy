@@ -9,6 +9,52 @@ const progress = ref(null)
 const isLoading = ref(true)
 const errorMessage = ref('')
 
+const achievementDetails = {
+  FIRST_STEPS: {
+    name: 'First Steps',
+    description: 'You completed your very first subject!',
+    icon: '🌱',
+    requirement: 'Complete 1 subject',
+  },
+
+  GETTING_SERIOUS: {
+    name: 'Getting Serious',
+    description: 'Your learning journey is gaining momentum!',
+    icon: '📚',
+    requirement: 'Complete 3 subjects',
+  },
+
+  KNOWLEDGE_SEEKER: {
+    name: 'Knowledge Seeker',
+    description: 'Your curiosity keeps taking you further.',
+    icon: '🔍',
+    requirement: 'Complete 5 subjects',
+  },
+
+  HALFWAY_HERO: {
+    name: 'Halfway Hero',
+    description: "You're making impressive progress!",
+    icon: '⭐',
+    requirement: 'Complete 10 subjects',
+  },
+
+  SCHOLARS_JOURNEY: {
+    name: "Scholar's Journey",
+    description: 'A remarkable milestone in your studies!',
+    icon: '👑',
+    requirement: 'Complete 20 subjects',
+  },
+}
+
+function getAchievementDetails(achievementCode) {
+  return achievementDetails[achievementCode] || {
+    name: achievementCode.replaceAll('_', ' '),
+    description: 'A StudyBuddy achievement!',
+    icon: '🏅',
+    requirement: 'Milestone achieved',
+  }
+}
+
 function goToDashboard() {
   router.push('/dashboard')
 }
@@ -144,21 +190,33 @@ onMounted(async () => {
     class="achievement-list"
   >
     <article
-      v-for="achievement in progress.achievements"
-      :key="achievement.id"
-      class="achievement-card"
-    >
-      <span class="achievement-icon">🏆</span>
+  v-for="achievement in progress.achievements"
+  :key="achievement.id"
+  class="achievement-card"
+>
+  <span class="achievement-icon">
+    {{ getAchievementDetails(achievement.achievement_code).icon }}
+  </span>
 
-      <div>
-        <h3>{{ achievement.achievement_code }}</h3>
+  <div class="achievement-info">
+    <h3>
+      {{ getAchievementDetails(achievement.achievement_code).name }}
+    </h3>
 
-        <p>
-          Unlocked:
-          {{ formatActivityDate(achievement.unlocked_at) }}
-        </p>
-      </div>
-    </article>
+    <p>
+      {{ getAchievementDetails(achievement.achievement_code).description }}
+    </p>
+
+    <span class="achievement-requirement">
+      {{ getAchievementDetails(achievement.achievement_code).requirement }}
+    </span>
+
+    <small>
+      Unlocked:
+      {{ formatActivityDate(achievement.unlocked_at) }}
+    </small>
+  </div>
+</article>
   </div>
 
   <div v-else class="achievement-empty-state">
@@ -368,17 +426,39 @@ onMounted(async () => {
   font-size: 32px;
 }
 
-.achievement-card h3 {
-  margin: 0 0 8px;
-  color: #594936;
-  font-size: 14px;
+.achievement-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.achievement-card p {
+.achievement-info h3 {
+  margin: 0;
+  color: #594936;
+  font-size: 15px;
+}
+
+.achievement-info p {
   margin: 0;
   color: #82735f;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.6;
+}
+
+.achievement-requirement {
+  width: fit-content;
+  padding: 5px 9px;
+  color: #8a7650;
+  background: #f1ead9;
+  border: 1px solid #d7c5a8;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.achievement-info small {
+  color: #9b8061;
+  font-size: 10px;
 }
 
 .activity-empty-state,

@@ -406,3 +406,17 @@ All remaining policies restrict access using `auth.uid() = id`.
 - Added a database advisory transaction lock for simultaneous requests.
 - Verified XP updates and study activity records through My Progress.
 - Successfully passed the production build.
+
+### Achievement System and Display
+- Implemented automatic achievement unlocking based on completed-subject milestones.
+- Added five achievements:
+  - First Steps — 1 completed subject
+  - Getting Serious — 3 completed subjects
+  - Knowledge Seeker — 5 completed subjects
+  - Halfway Hero — 10 completed subjects
+  - Scholar's Journey — 20 completed subjects
+- Added backend logic to prevent duplicate achievement records.
+- Integrated achievement unlocking with subject completion and the My Progress service.
+- Updated the My Achievements section to display achievement icons, names, descriptions, requirements, and unlock dates.
+- Added an empty state for students who have not unlocked any achievements.
+- Verified the implementation through the application and a successful production build.

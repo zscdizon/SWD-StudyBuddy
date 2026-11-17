@@ -16,6 +16,14 @@ export async function getStudentProgress() {
   }
 
   const studentId = userData.user.id
+  
+  const { error: achievementError } = await supabase.rpc(
+  'unlock_subject_milestone_achievements'
+)
+
+if (achievementError) {
+  throw achievementError
+}
 
   const [
     progressResult,
@@ -76,3 +84,65 @@ export async function getStudentProgress() {
     achievements: achievementsResult.data ?? [],
   }
 }
+
+
+/**
+ * Check whether the student has completed a subject.
+ */
+export async function getSubjectCompletion(subjectId) {
+  const { data: userData, error: userError } =
+    await supabase.auth.getUser()
+
+  if (userError) {
+    throw userError
+  }
+
+  if (!userData.user) {
+    throw new Error('You must be logged in.')
+  }
+
+  const { data, error } = await supabase
+    .from('student_subject_progress')
+    .select('is_completed')
+    .eq('student_id', userData.user.id)
+    .eq('subject_id', subjectId)
+    .maybeSingle()
+
+  if (error) {
+    throw error
+  }
+
+  return data?.is_completed ?? false
+}
+
+
+/**
+ * Mark a subject as completed and award XP securely.
+ * Supabase handles the completion, XP reward, and activity record.
+ */
+export async function markSubjectCompleted(subjectId) {
+  const { data: userData, error: userError } =
+    await supabase.auth.getUser()
+
+  if (userError) {
+    throw userError
+  }
+
+  if (!userData.user) {
+    throw new Error('You must be logged in.')
+  }
+
+  const { data, error } = await supabase.rpc(
+    'complete_subject_with_xp',
+    {
+      p_subject_id: subjectId,
+    }
+  )
+
+  if (error) {
+    throw error
+  }
+
+  return data
+}
+
