@@ -199,3 +199,34 @@ All remaining policies restrict access using `auth.uid() = id`.
 - Implement student onboarding and profile management.
 - Test session persistence.
 
+
+## Dashboard and Route Protection
+
+### Student Dashboard
+- Created `src/views/DashboardView.vue`.
+- Connected the Dashboard to Supabase authentication and student profiles.
+- Displayed the student's saved full name and year level.
+- Added loading and error messages.
+
+### Navigation
+- Restored the welcome page as the homepage (`/`).
+- Created the dedicated Dashboard route (`/dashboard`).
+- Updated login and onboarding redirects to open the Dashboard after profile completion.
+
+### Logout
+- Implemented student logout using Supabase Auth.
+- Added a styled Logout button.
+- Successfully tested session termination and redirection to the welcome page.
+
+### Authentication Route Protection
+- Implemented a Vue Router navigation guard.
+- Protected `/dashboard` and `/onboarding` using authentication metadata.
+- Redirected unauthenticated visitors to the welcome page.
+- Successfully tested both protected routes.
+
+### Verification
+- Successfully tested the login-to-dashboard flow.
+- Successfully tested logout.
+- Successfully tested Dashboard and onboarding access restrictions.
+- Executed `npm.cmd run build`.
+- Production build completed successfully with no errors.

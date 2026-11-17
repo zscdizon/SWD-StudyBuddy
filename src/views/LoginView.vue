@@ -34,7 +34,7 @@ async function handleLogin() {
     if (profile.year_level === null) {
       router.push('/onboarding')
     } else {
-      router.push('/')
+      router.push('/dashboard')
     }
   } catch (error) {
     errorMessage.value = error.message

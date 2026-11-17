@@ -25,7 +25,7 @@ async function handleCompleteProfile() {
       yearLevel: Number(yearLevel.value),
     })
 
-    router.push('/')
+    router.push('/dashboard')
   } catch (error) {
     errorMessage.value = error.message
   } finally {
