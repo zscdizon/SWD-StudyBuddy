@@ -259,3 +259,26 @@ All remaining policies restrict access using `auth.uid() = id`.
 ### Build Verification
 - Executed `npm.cmd run build`.
 - Production build completed successfully with no errors.
+
+## My Subjects Page
+
+### Page Development
+- Created `src/views/SubjectsView.vue`.
+- Added the StudyBuddy header and mascot.
+- Added a Back to Dashboard button.
+- Created the My Subjects page introduction and empty state.
+
+### Navigation and Security
+- Registered the `/subjects` route in Vue Router.
+- Protected the Subjects page using the authentication guard.
+- Connected the Dashboard's My Subjects card to the Subjects page.
+- Successfully tested navigation from Dashboard to Subjects and back.
+
+### Responsive Design
+- Added mobile-specific styling for smaller screens.
+- Adjusted header alignment, spacing, and typography.
+- Successfully tested the page using Chrome Device Toolbar.
+
+### Build Verification
+- Executed `npm.cmd run build`.
+- Production build completed successfully with no errors.

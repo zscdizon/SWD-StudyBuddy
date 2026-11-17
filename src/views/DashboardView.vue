@@ -86,11 +86,11 @@ onMounted(async () => {
   <h2 class="section-title">Your Study Space</h2>
 
   <div class="study-tools">
-    <div class="tool-card">
-      <span class="tool-icon">📚</span>
-      <h3>My Subjects</h3>
-      <p>Your subjects and lecture notebooks.</p>
-    </div>
+    <RouterLink to="/subjects" class="tool-card">
+    <span class="tool-icon">📚</span>
+    <h3>My Subjects</h3>
+    <p>Your subjects and lecture notebooks.</p>
+    </RouterLink>
 
     <div class="tool-card">
       <span class="tool-icon">📖</span>
@@ -206,6 +206,9 @@ onMounted(async () => {
   border: 3px solid #c9b99f;
   border-radius: 9px;
   box-shadow: 4px 4px 0 #e4d8c3;
+  display: block;
+  color: inherit;
+  text-decoration: none;
 }
 
 .tool-icon {
