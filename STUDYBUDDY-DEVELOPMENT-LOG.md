@@ -392,3 +392,17 @@ All remaining policies restrict access using `auth.uid() = id`.
 - Integrated completed subject counts with the My Progress dashboard.
 - Verified that completing a subject updates the progress dashboard.
 - Successfully passed the production build.
+
+## XP Reward and Study Activity System
+
+- Implemented a secure Supabase XP reward function.
+- Students earn 50 XP when completing a subject for the first time.
+- Updated student_progress automatically after successful completion.
+- Recorded completed subjects in study_activities.
+- Connected Vue to the Supabase RPC function.
+- Added an XP reward notification to the Subject Detail page.
+- Displayed earned XP and updated total XP after completion.
+- Prevented duplicate XP rewards for previously completed subjects.
+- Added a database advisory transaction lock for simultaneous requests.
+- Verified XP updates and study activity records through My Progress.
+- Successfully passed the production build.
