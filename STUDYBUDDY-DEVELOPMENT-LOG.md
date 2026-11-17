@@ -119,7 +119,6 @@ All three policies use `auth.uid() = id` to restrict access to the profile owner
 - NULL is temporarily allowed for incomplete registration profiles.
 
 ### Pending Database Tasks
-- Configure automatic profile creation during registration.
 - Configure and test authentication.
 
 ### Automatic Timestamp Updates
@@ -127,3 +126,24 @@ All three policies use `auth.uid() = id` to restrict access to the profile owner
 - Created `set_profiles_updated_at` trigger.
 - Trigger automatically updates `updated_at` before every profile update.
 - Verified that the trigger exists in Supabase.
+
+### Supabase Authentication Setup
+- Enabled email and password authentication.
+- Enabled new user signups.
+- Enabled email confirmation.
+- Disabled anonymous sign-ins and manual account linking.
+- Configured Site URL: http://localhost:5173
+- Added local Redirect URL: http://localhost:5173/**
+
+### Automatic Profile Creation
+- Created `public.handle_new_user()` function.
+- Created `on_auth_user_created` trigger on `auth.users`.
+- Automatically creates a matching `public.profiles` record after registration.
+- Retrieves the student's full name from authentication metadata.
+- Verified the trigger using information_schema.triggers.
+
+### Pending Authentication Tasks
+- Review and remove the unnecessary client-side profile INSERT policy.
+- Implement and test registration and login.
+- Configure student eligibility verification.
+- Test email confirmation and session persistence.
