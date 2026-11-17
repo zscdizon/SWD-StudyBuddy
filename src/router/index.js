@@ -9,6 +9,7 @@ import DashboardView from '@/views/DashboardView.vue'
 import { getCurrentStudent } from '@/services/auth'
 import SubjectsView from '@/views/SubjectsView.vue'
 import SubjectDetailView from '@/views/SubjectDetailView.vue'
+import ProgressView from '@/views/ProgressView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,6 +40,14 @@ const router = createRouter({
   path: '/subjects/:id',
   name: 'subject-detail',
   component: SubjectDetailView,
+  meta: {
+    requiresAuth: true,
+  },
+},
+{
+  path: '/progress',
+  name: 'progress',
+  component: ProgressView,
   meta: {
     requiresAuth: true,
   },

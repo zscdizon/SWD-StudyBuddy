@@ -104,11 +104,11 @@ onMounted(async () => {
       <p>Organize your tasks and study time.</p>
     </div>
 
-    <div class="tool-card">
-      <span class="tool-icon">⭐</span>
-      <h3>My Progress</h3>
-      <p>Keep track of your learning journey.</p>
-    </div>
+    <RouterLink to="/progress" class="tool-card">
+  <span class="tool-icon">⭐</span>
+  <h3>My Progress</h3>
+  <p>Keep track of your learning journey.</p>
+</RouterLink>
   </div>  
 </section>
 

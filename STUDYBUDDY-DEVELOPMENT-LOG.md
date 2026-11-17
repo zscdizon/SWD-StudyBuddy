@@ -342,3 +342,41 @@ All remaining policies restrict access using `auth.uid() = id`.
 - Verified edits persist after refreshing.
 - Successfully deleted notes.
 - Verified deleted notes remain deleted after refreshing.
+
+## My Progress — Supabase Integration
+
+### Database
+- Created the student_progress table for XP tracking.
+- Created the student_subject_progress table for completed subjects.
+- Created the study_activities table for activity history.
+- Created the student_achievements table for unlocked achievements.
+- Enabled Row Level Security and configured student-specific access policies.
+
+### Progress Service
+- Created src/services/progress.js.
+- Connected progress retrieval to the existing Supabase client.
+- Added XP, completed subject, and total subject counts.
+- Added retrieval of recent study activities.
+- Added retrieval of unlocked achievements.
+
+### My Progress Page
+- Created src/views/ProgressView.vue.
+- Registered the protected /progress route.
+- Connected the Dashboard's My Progress card.
+- Added dynamic XP and completed subject counters.
+- Added the Study Activity section.
+- Added the My Achievements section.
+- Added loading and error states.
+
+### Responsive Design and Testing
+- Added mobile-responsive styling.
+- Successfully tested Dashboard navigation.
+- Successfully tested the Progress page in Chrome.
+- Verified Supabase progress data retrieval.
+- Production build completed successfully.
+
+### Remaining Development
+- Implement controlled XP awarding.
+- Implement subject completion tracking.
+- Implement automatic study activity recording.
+- Implement achievement unlocking rules.
