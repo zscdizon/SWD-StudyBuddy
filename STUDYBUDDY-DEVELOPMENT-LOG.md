@@ -151,6 +151,17 @@ All remaining policies restrict access using `auth.uid() = id`.
 - Test email confirmation and session persistence.
 
 ## Supabase Frontend Integration
+### Authentication Service
+- Created `src/services/auth.js`.
+- Implemented student registration using Supabase Auth.
+- Implemented student login and logout.
+- Added password recovery email functionality.
+- Added current authenticated student retrieval.
+- Added student profile retrieval from the `profiles` table.
+- Added student profile update functionality.
+- Verified the project using `npm run build`.
+- Production build completed successfully with no errors.
+
 
 ### Environment Configuration
 - Created `.env.local` to store Supabase connection credentials.
