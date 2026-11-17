@@ -106,12 +106,13 @@ Created `public.profiles` with:
 - `updated_at` — Timestamp with default `now()`.
 
 ### Security Policies
-Created the following RLS policies:
-- Students can view their own profile.
-- Students can create their own profile.
-- Students can update their own profile.
+Created and verified the following RLS policies:
+- Students can view their own profile (SELECT).
+- Students can update their own profile (UPDATE).
 
-All three policies use `auth.uid() = id` to restrict access to the profile owner.
+Removed the client-side INSERT policy because profile creation is handled automatically by the database trigger.
+
+All remaining policies restrict access using `auth.uid() = id`.
 
 ### Database Constraints
 - Added `valid_year_level` CHECK constraint.
@@ -147,3 +148,4 @@ All three policies use `auth.uid() = id` to restrict access to the profile owner
 - Implement and test registration and login.
 - Configure student eligibility verification.
 - Test email confirmation and session persistence.
+
