@@ -50,6 +50,13 @@ onMounted(async () => {
 <template>
   <main class="dashboard-page">
     <section class="dashboard-content">
+    <header class="dashboard-header">
+  <div class="brand">
+    <span class="brand-mascot">🐱</span>
+    <span class="brand-name">StudyBuddy</span>
+  </div>
+</header>
+
       <p v-if="isLoading">Preparing your study room...</p>
 
       <p v-else-if="errorMessage">
@@ -58,6 +65,8 @@ onMounted(async () => {
 
       <template v-else>
         <p class="eyebrow">YOUR LITTLE STUDY COMPANION</p>
+
+        <div class="welcome-section">
 
         <h1>Welcome back, {{ studentName }}!</h1>
 
@@ -71,6 +80,38 @@ onMounted(async () => {
         >
         LOG OUT
         </button>
+        </div>
+
+<section class="study-space">
+  <h2 class="section-title">Your Study Space</h2>
+
+  <div class="study-tools">
+    <div class="tool-card">
+      <span class="tool-icon">📚</span>
+      <h3>My Subjects</h3>
+      <p>Your subjects and lecture notebooks.</p>
+    </div>
+
+    <div class="tool-card">
+      <span class="tool-icon">📖</span>
+      <h3>Personal Journal</h3>
+      <p>A little space for your thoughts.</p>
+    </div>
+
+    <div class="tool-card">
+      <span class="tool-icon">📅</span>
+      <h3>Study Planner</h3>
+      <p>Organize your tasks and study time.</p>
+    </div>
+
+    <div class="tool-card">
+      <span class="tool-icon">⭐</span>
+      <h3>My Progress</h3>
+      <p>Keep track of your learning journey.</p>
+    </div>
+  </div>  
+</section>
+
       </template>
     </section>
   </main>
@@ -92,6 +133,98 @@ onMounted(async () => {
   border: 4px solid #665544;
   border-radius: 12px;
   box-shadow: 10px 10px 0 #b7a58b;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #e4d8c3;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mascot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: #e9dfc9;
+  border: 3px solid #665544;
+  border-radius: 8px;
+  font-size: 28px;
+}
+
+.brand-name {
+  color: #594936;
+  font-size: 23px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.welcome-section {
+  padding: 28px;
+  background: #f1ead9;
+  border: 2px solid #d7c5a8;
+  border-radius: 10px;
+}
+
+.welcome-section h1 {
+  margin: 0 0 12px;
+}
+
+.welcome-section p {
+  margin: 8px 0;
+}
+
+.study-space {
+  margin-top: 35px;
+}
+
+.section-title {
+  margin: 0 0 20px;
+  color: #594936;
+  font-size: 22px;
+}
+
+.study-tools {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.tool-card {
+  padding: 22px;
+  background: #fffdf7;
+  border: 3px solid #c9b99f;
+  border-radius: 9px;
+  box-shadow: 4px 4px 0 #e4d8c3;
+}
+
+.tool-icon {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 32px;
+}
+
+.tool-card h3 {
+  margin: 0 0 8px;
+  color: #594936;
+  font-size: 17px;
+}
+
+.tool-card p {
+  margin: 0;
+  color: #82735f;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .eyebrow {
@@ -126,6 +259,36 @@ p {
 
 .logout-button:hover {
   background: #905b49;
+}
+
+@media (max-width: 640px) {
+  .dashboard-page {
+    padding: 20px 14px;
+  }
+
+  .dashboard-content {
+    padding: 22px 18px;
+  }
+
+  .dashboard-header {
+    margin-bottom: 22px;
+  }
+
+  .brand-name {
+    font-size: 20px;
+  }
+
+  .welcome-section {
+    padding: 22px;
+  }
+
+  .welcome-section h1 {
+    font-size: 25px;
+  }
+
+  .study-tools {
+    grid-template-columns: 1fr;
+  }
 }
 
 </style>

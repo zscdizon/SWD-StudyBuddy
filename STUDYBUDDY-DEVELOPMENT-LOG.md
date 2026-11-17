@@ -230,3 +230,32 @@ All remaining policies restrict access using `auth.uid() = id`.
 - Successfully tested Dashboard and onboarding access restrictions.
 - Executed `npm.cmd run build`.
 - Production build completed successfully with no errors.
+
+## Dashboard UI and Responsive Design
+
+### StudyBuddy Header
+- Added a branded StudyBuddy header.
+- Added a mascot icon and custom header styling.
+
+### Welcome Section
+- Created a personalized student welcome panel.
+- Displayed the student's full name and year level.
+- Added a cozy visual design consistent with the StudyBuddy theme.
+
+### Study Space
+- Added four study tool cards:
+  - My Subjects
+  - Personal Journal
+  - Study Planner
+  - My Progress
+- Styled the cards using the StudyBuddy color palette.
+
+### Responsive Design
+- Added mobile-specific CSS using a media query.
+- Adjusted spacing and typography for smaller screens.
+- Changed the study cards to a single-column layout on mobile.
+- Successfully tested the responsive layout using Chrome Device Toolbar.
+
+### Build Verification
+- Executed `npm.cmd run build`.
+- Production build completed successfully with no errors.

@@ -222,6 +222,12 @@ h1 {
   transform: none;
 }
 
+.continue-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .footer-text {
   margin: 28px 0 0;
   color: #a4947d;
