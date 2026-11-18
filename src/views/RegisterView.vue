@@ -8,6 +8,8 @@ const fullName = ref('')
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
+const showPassword = ref(false)
+const showConfirmPassword = ref(false)
 const isLoading = ref(false)
 const errorMessage = ref('')
 const successMessage = ref('')
@@ -101,24 +103,46 @@ async function handleRegister() {
         />
 
         <label for="password">Password</label>
-        <input
-          id="password"
-          v-model="password"
-          type="password"
-          placeholder="Create a password"
-          autocomplete="new-password"
-          required
-        />
+<div class="password-wrapper">
+  <input
+    id="password"
+    v-model="password"
+    :type="showPassword ? 'text' : 'password'"
+    placeholder="Create a password"
+    autocomplete="new-password"
+    required
+  />
+
+  <button
+    type="button"
+    class="toggle-password"
+    @click="showPassword = !showPassword"
+    :aria-label="showPassword ? 'Hide password' : 'Show password'"
+  >
+    {{ showPassword ? '🙈' : '👁️' }}
+  </button>
+</div>
 
         <label for="confirmPassword">Confirm Password</label>
-        <input
-          id="confirmPassword"
-          v-model="confirmPassword"
-          type="password"
-          placeholder="Re-enter your password"
-          autocomplete="new-password"
-          required
-        />
+<div class="password-wrapper">
+  <input
+    id="confirmPassword"
+    v-model="confirmPassword"
+    :type="showConfirmPassword ? 'text' : 'password'"
+    placeholder="Re-enter your password"
+    autocomplete="new-password"
+    required
+  />
+
+  <button
+    type="button"
+    class="toggle-password"
+    @click="showConfirmPassword = !showConfirmPassword"
+    :aria-label="showConfirmPassword ? 'Hide password' : 'Show password'"
+  >
+    {{ showConfirmPassword ? '🙈' : '👁️' }}
+  </button>
+</div>
 
         <button
         type="submit"
@@ -281,6 +305,33 @@ h1 {
 
 .register-form input:focus {
   border-color: #8d9b72;
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  padding-right: 45px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.toggle-password:hover {
+  opacity: 0.7;
 }
 
 .create-button {

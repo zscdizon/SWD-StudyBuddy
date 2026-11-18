@@ -8,6 +8,8 @@ const router = useRouter()
 
 const password = ref('')
 const confirmPassword = ref('')
+const showPassword = ref(false)
+const showConfirmPassword = ref(false)
 const isLoading = ref(false)
 const isCheckingSession = ref(true)
 const isRecoveryValid = ref(false)
@@ -106,27 +108,49 @@ function goToLogin() {
         <form class="reset-form" @submit.prevent="handlePasswordUpdate">
           <label for="password">New Password</label>
 
-          <input
-            id="password"
-            v-model="password"
-            type="password"
-            placeholder="Enter your new password"
-            autocomplete="new-password"
-            minlength="8"
-            required
-          />
+<div class="password-wrapper">
+  <input
+    id="password"
+    v-model="password"
+    :type="showPassword ? 'text' : 'password'"
+    placeholder="Enter your new password"
+    autocomplete="new-password"
+    minlength="8"
+    required
+  />
+
+  <button
+    type="button"
+    class="toggle-password"
+    @click="showPassword = !showPassword"
+    :aria-label="showPassword ? 'Hide password' : 'Show password'"
+  >
+    {{ showPassword ? '🙈' : '👁️' }}
+  </button>
+</div>
 
           <label for="confirmPassword">Confirm New Password</label>
 
-          <input
-            id="confirmPassword"
-            v-model="confirmPassword"
-            type="password"
-            placeholder="Re-enter your new password"
-            autocomplete="new-password"
-            minlength="8"
-            required
-          />
+<div class="password-wrapper">
+  <input
+    id="confirmPassword"
+    v-model="confirmPassword"
+    :type="showConfirmPassword ? 'text' : 'password'"
+    placeholder="Re-enter your new password"
+    autocomplete="new-password"
+    minlength="8"
+    required
+  />
+
+  <button
+    type="button"
+    class="toggle-password"
+    @click="showConfirmPassword = !showConfirmPassword"
+    :aria-label="showConfirmPassword ? 'Hide password' : 'Show password'"
+  >
+    {{ showConfirmPassword ? '🙈' : '👁️' }}
+  </button>
+</div>
 
           <button
             type="submit"
@@ -280,6 +304,33 @@ h1 {
 
 .reset-form input:focus {
   border-color: #8d9b72;
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  padding-right: 45px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.toggle-password:hover {
+  opacity: 0.7;
 }
 
 .reset-button {

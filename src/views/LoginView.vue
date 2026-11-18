@@ -8,6 +8,7 @@ const router = useRouter()
 
 const email = ref('')
 const password = ref('')
+const showPassword = ref(false)
 const isLoading = ref(false)
 const errorMessage = ref('')
 
@@ -78,14 +79,25 @@ async function handleLogin() {
         />
 
         <label for="password">Password</label>
-        <input
-          id="password"
-          v-model="password"
-          type="password"
-          placeholder="Enter your password"
-          autocomplete="current-password"
-          required
-        />
+<div class="password-wrapper">
+  <input
+    id="password"
+    v-model="password"
+    :type="showPassword ? 'text' : 'password'"
+    placeholder="Enter your password"
+    autocomplete="current-password"
+    required
+  />
+
+  <button
+    type="button"
+    class="toggle-password"
+    @click="showPassword = !showPassword"
+    :aria-label="showPassword ? 'Hide password' : 'Show password'"
+  >
+    {{ showPassword ? '🙈' : '👁️' }}
+  </button>
+</div>
 
         <button
           type="button"
@@ -248,6 +260,33 @@ h1 {
 
 .login-form input:focus {
   border-color: #8d9b72;
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  padding-right: 45px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.toggle-password:hover {
+  opacity: 0.7;
 }
 
 .forgot-button {
