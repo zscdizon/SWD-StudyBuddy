@@ -59,6 +59,19 @@ export async function resetStudentPassword(email) {
   return data
 }
 
+/** Update a student's password after recovery. */
+export async function updateStudentPassword(newPassword) {
+  const { data, error } = await supabase.auth.updateUser({
+    password: newPassword,
+  })
+
+  if (error) {
+    throw error
+  }
+
+  return data
+}
+
 /** Retrieve the currently authenticated student. */
 export async function getCurrentStudent() {
   const { data, error } = await supabase.auth.getUser()

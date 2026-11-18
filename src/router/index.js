@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import WelcomeView from '@/views/WelcomeView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import LoginView from '@/views/LoginView.vue'
+import ForgotPasswordView from '@/views/ForgotPasswordView.vue'
+import ResetPasswordView from '@/views/ResetPasswordView.vue'
 import OnboardingView from '@/views/OnboardingView.vue'
 import AuthCallbackView from '@/views/AuthCallbackView.vue'
 import DashboardView from '@/views/DashboardView.vue'
@@ -10,6 +12,10 @@ import { getCurrentStudent } from '@/services/auth'
 import SubjectsView from '@/views/SubjectsView.vue'
 import SubjectDetailView from '@/views/SubjectDetailView.vue'
 import ProgressView from '@/views/ProgressView.vue'
+import StudySessionView from '@/views/StudySessionView.vue'
+import PersonalJournalView from '@/views/PersonalJournalView.vue'
+import StudyPlannerView from '@/views/StudyPlannerView.vue'
+import ProfileView from '@/views/ProfileView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +33,26 @@ const router = createRouter({
   meta: {
     requiresAuth: true,
   },
+},
+{
+  path: '/journal',
+  name: 'journal',
+  component: PersonalJournalView,
+  meta: {
+    requiresAuth: true,
+  },
+},
+{
+  path: '/planner',
+  name: 'planner',
+  component: StudyPlannerView,
+  meta: { requiresAuth: true },
+},
+{
+  path: '/profile',
+  name: 'profile',
+  component: ProfileView,
+  meta: { requiresAuth: true },
 },
 {
   path: '/subjects',
@@ -63,9 +89,27 @@ const router = createRouter({
       component: LoginView,
     },
     {
+  path: '/forgot-password',
+  name: 'forgot-password',
+  component: ForgotPasswordView,
+},
+{
+  path: '/reset-password',
+  name: 'reset-password',
+  component: ResetPasswordView,
+},
+    {
   path: '/onboarding',
   name: 'onboarding',
   component: OnboardingView,
+  meta: {
+    requiresAuth: true,
+  },
+},
+{
+  path: '/study-session',
+  name: 'study-session',
+  component: StudySessionView,
   meta: {
     requiresAuth: true,
   },

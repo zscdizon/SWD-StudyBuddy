@@ -4,6 +4,10 @@ import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getSubjectById } from '@/services/subjects'
 import {
+  getSubjectCompletion,
+  markSubjectCompleted,
+} from '@/services/progress'
+import {
   getSubjectNotes,
   createSubjectNote,
   updateSubjectNote,
@@ -14,6 +18,11 @@ const route = useRoute()
 const router = useRouter()
 
 const subject = ref(null)
+const isCompleted = ref(false)
+const isCompleting = ref(false)
+const completionError = ref('')
+const xpEarned = ref(0)
+const totalXP = ref(0)
 const notes = ref([])
 const noteTitle = ref('')
 const noteContent = ref('')
@@ -26,6 +35,27 @@ const noteError = ref('')
 
 function goBack() {
   router.push('/subjects')
+}
+
+async function handleMarkSubjectCompleted() {
+  if (!subject.value || isCompleted.value || isCompleting.value) {
+    return
+  }
+
+  isCompleting.value = true
+  completionError.value = ''
+
+  try {
+    const result = await markSubjectCompleted(subject.value.id)
+
+    isCompleted.value = true
+    xpEarned.value = result.xp_earned ?? 0
+    totalXP.value = result.total_xp ?? 0
+  } catch (error) {
+    completionError.value = error.message
+  } finally {
+    isCompleting.value = false
+  }
 }
 
 function startEditingNote(note) {
@@ -117,13 +147,17 @@ async function handleCreateNote() {
 
 onMounted(async () => {
   try {
-    const [subjectData, notesData] = await Promise.all([
+
+const [subjectData, notesData, completionStatus] = await Promise.all([
   getSubjectById(route.params.id),
   getSubjectNotes(route.params.id),
+  getSubjectCompletion(route.params.id),
 ])
 
 subject.value = subjectData
 notes.value = notesData
+isCompleted.value = completionStatus
+
   } catch (error) {
     errorMessage.value = error.message
   } finally {
@@ -173,6 +207,43 @@ notes.value = notesData
         </section>
 
         
+<section class="completion-section">
+  <div>
+    <h3>Subject Completion</h3>
+    <p>
+      Finished studying this subject? Mark it as completed!
+    </p>
+  </div>
+
+  <button
+    type="button"
+    class="complete-subject-button"
+    :disabled="isCompleted || isCompleting"
+    @click="handleMarkSubjectCompleted"
+  >
+    {{
+      isCompleting
+        ? 'SAVING PROGRESS...'
+        : isCompleted
+          ? '✓ SUBJECT COMPLETED'
+          : 'MARK AS COMPLETED'
+    }}
+  </button>
+
+  <p v-if="completionError" class="completion-error">
+    {{ completionError }}
+  </p>
+  <div v-if="xpEarned > 0" class="xp-reward-message">
+  <span class="xp-reward-icon">⭐</span>
+
+  <div>
+    <h4>QUEST COMPLETED!</h4>
+    <p>You earned +{{ xpEarned }} XP!</p>
+    <small>Total XP: {{ totalXP }}</small>
+  </div>
+</div>
+</section>
+
 <section class="notebook-section">
   <span class="notebook-icon">📖</span>
 
@@ -354,6 +425,101 @@ notes.value = notesData
   color: #82735f;
   font-size: 13px;
   line-height: 1.7;
+}
+
+.completion-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 30px;
+  padding: 22px;
+  background: #f1ead9;
+  border: 2px solid #d7c5a8;
+  border-radius: 9px;
+}
+
+.completion-section h3 {
+  margin: 0 0 7px;
+  color: #594936;
+  font-size: 16px;
+}
+
+.completion-section p {
+  margin: 0;
+  color: #82735f;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.complete-subject-button {
+  min-height: 42px;
+  padding: 0 18px;
+  color: #fffaf0;
+  background: #a66f5b;
+  border: 2px solid #665544;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.complete-subject-button:disabled {
+  background: #8b9672;
+  cursor: not-allowed;
+}
+
+.completion-error {
+  flex-basis: 100%;
+  color: #9b463d !important;
+}
+
+.xp-reward-message {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-basis: 100%;
+  padding: 18px;
+  background: #e5edcf;
+  border: 2px solid #9aaa72;
+  border-radius: 8px;
+  animation: reward-appear 0.4s ease-out;
+}
+
+.xp-reward-icon {
+  font-size: 35px;
+}
+
+.xp-reward-message h4 {
+  margin: 0 0 6px;
+  color: #596b3e;
+  font-size: 15px;
+}
+
+.xp-reward-message p {
+  margin: 0 0 5px;
+  color: #65794a;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.xp-reward-message small {
+  color: #82735f;
+  font-size: 11px;
+}
+
+@keyframes reward-appear {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .notebook-section {

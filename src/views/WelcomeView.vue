@@ -1,4 +1,3 @@
-
 <script setup>
 import { useRouter } from 'vue-router'
 
@@ -17,8 +16,11 @@ function goToLogin() {
   <main class="welcome-page">
     <div class="welcome-card">
       <div class="mascot">
-        <span>🐱</span>
-      </div>
+  <img
+    src="/images/studybuddy-cat.gif"
+    alt="StudyBuddy cat mascot"
+  />
+</div>
 
       <p class="eyebrow">YOUR LITTLE STUDY COMPANION</p>
 
@@ -58,6 +60,7 @@ function goToLogin() {
 }
 
 .welcome-card {
+  animation: card-entrance 0.7s ease-out both;
   width: 100%;
   max-width: 520px;
   padding: 55px 40px;
@@ -68,20 +71,39 @@ function goToLogin() {
   box-shadow: 10px 10px 0 #b7a58b;
 }
 
+@keyframes card-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .mascot {
   margin-bottom: 18px;
 }
 
-.mascot span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.mascot img {
+  display: block;
   width: 105px;
   height: 105px;
-  font-size: 65px;
-  background: #e9dfc9;
-  border: 3px solid #665544;
-  border-radius: 12px;
+  margin: 0 auto;
+  object-fit: contain;
+  animation: mascot-float 3s ease-in-out infinite;
+}
+
+@keyframes mascot-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 .eyebrow {

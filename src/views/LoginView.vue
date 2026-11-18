@@ -16,7 +16,7 @@ function goToRegister() {
 }
 
 function goToForgotPassword() {
-  console.log('Password recovery will be implemented later.')
+  router.push('/forgot-password')
 }
 
 async function handleLogin() {
@@ -48,7 +48,12 @@ async function handleLogin() {
 <template>
   <main class="login-page">
     <section class="login-card">
-      <div class="mascot">🐱</div>
+      <div class="mascot">
+  <img
+    src="/images/studybuddy-cat.gif"
+    alt="StudyBuddy cat mascot"
+  />
+</div>
 
       <p class="eyebrow">YOUR STUDY ADVENTURE CONTINUES</p>
 
@@ -129,6 +134,7 @@ async function handleLogin() {
 }
 
 .login-card {
+  animation: card-entrance 0.7s ease-out both;
   width: 100%;
   max-width: 460px;
   padding: 42px 38px;
@@ -136,6 +142,18 @@ async function handleLogin() {
   border: 4px solid #665544;
   border-radius: 12px;
   box-shadow: 10px 10px 0 #b7a58b;
+}
+
+@keyframes card-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .mascot {
@@ -148,7 +166,23 @@ async function handleLogin() {
   background: #e9dfc9;
   border: 3px solid #665544;
   border-radius: 10px;
-  font-size: 45px;
+}
+
+.mascot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: mascot-float 3s ease-in-out infinite;
+}
+
+@keyframes mascot-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 .eyebrow {
