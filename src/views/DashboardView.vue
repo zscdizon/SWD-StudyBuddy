@@ -298,6 +298,12 @@ onMounted(async () => {
   <p>View and customize your student identity.</p>
 </RouterLink>
 
+<RouterLink to="/about" class="tool-card">
+  <span class="tool-icon">ⓘ</span>
+  <h3>About StudyBuddy</h3>
+  <p>Meet the team and discover how we built this little study space.</p>
+</RouterLink>
+
     <RouterLink to="/progress" class="tool-card">
   <span class="tool-icon">⭐</span>
   <h3>My Progress</h3>

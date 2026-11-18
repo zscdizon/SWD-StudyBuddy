@@ -16,6 +16,7 @@ import StudySessionView from '@/views/StudySessionView.vue'
 import PersonalJournalView from '@/views/PersonalJournalView.vue'
 import StudyPlannerView from '@/views/StudyPlannerView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import AboutView from '@/views/AboutView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,12 @@ const router = createRouter({
   meta: {
     requiresAuth: true,
   },
+},
+{
+  path: '/about',
+  name: 'about',
+  component: AboutView,
+  meta: { requiresAuth: true },
 },
 {
   path: '/journal',
