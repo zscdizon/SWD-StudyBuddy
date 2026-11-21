@@ -3,12 +3,14 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { loginStudent, getStudentProfile } from '@/services/auth'
+import PasswordInput from '@/components/PasswordInput.vue'
+import MessageAlert from '@/components/MessageAlert.vue'
 
 const router = useRouter()
 
 const email = ref('')
 const password = ref('')
-const showPassword = ref(false)
+
 const isLoading = ref(false)
 const errorMessage = ref('')
 
@@ -63,9 +65,10 @@ async function handleLogin() {
       <p class="subtitle">
         Your study buddy has been waiting for you.
       </p>
-      <p v-if="errorMessage" class="error-message">
-      {{ errorMessage }}
-      </p>
+      <MessageAlert
+  type="error"
+  :message="errorMessage"
+/>
 
       <form class="login-form" @submit.prevent="handleLogin">
         <label for="email">Email Address</label>
@@ -79,25 +82,13 @@ async function handleLogin() {
         />
 
         <label for="password">Password</label>
-<div class="password-wrapper">
-  <input
-    id="password"
-    v-model="password"
-    :type="showPassword ? 'text' : 'password'"
-    placeholder="Enter your password"
-    autocomplete="current-password"
-    required
-  />
-
-  <button
-    type="button"
-    class="toggle-password"
-    @click="showPassword = !showPassword"
-    :aria-label="showPassword ? 'Hide password' : 'Show password'"
-  >
-    {{ showPassword ? '🙈' : '👁️' }}
-  </button>
-</div>
+<PasswordInput
+  id="password"
+  v-model="password"
+  label="Password"
+  placeholder="Enter your password"
+  autocomplete="current-password"
+/>
 
         <button
           type="button"
@@ -221,18 +212,6 @@ h1 {
   line-height: 1.6;
 }
 
-.error-message {
-  margin: 0 0 15px;
-  padding: 12px;
-  color: #9b4545;
-  background: #f8e5df;
-  border: 2px solid #d9a49a;
-  border-radius: 6px;
-  font-size: 12px;
-  line-height: 1.5;
-  text-align: center;
-}
-
 .login-form {
   display: flex;
   flex-direction: column;
@@ -260,33 +239,6 @@ h1 {
 
 .login-form input:focus {
   border-color: #8d9b72;
-}
-
-.password-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.password-wrapper input {
-  padding-right: 45px;
-}
-
-.toggle-password {
-  position: absolute;
-  right: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 17px;
-}
-
-.toggle-password:hover {
-  opacity: 0.7;
 }
 
 .forgot-button {
@@ -346,4 +298,3 @@ h1 {
   font-size: 11px;
 }
 </style>
-
